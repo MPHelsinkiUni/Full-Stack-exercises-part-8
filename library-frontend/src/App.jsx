@@ -2,9 +2,23 @@ import { useState } from 'react'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
+import { gql } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
+
+const ALL_AUTHORS = gql`
+  query {
+    allAuthors {
+      name
+      id
+      born
+      bookCount
+    }
+  }
+`
 
 const App = () => {
   const [page, setPage] = useState('authors')
+  const result = useQuery(ALL_AUTHORS)
 
   return (
     <div>
@@ -14,7 +28,7 @@ const App = () => {
         <button onClick={() => setPage('add')}>add book</button>
       </div>
 
-      <Authors show={page === 'authors'} />
+      <Authors show={page === 'authors'} authors={result} />
 
       <Books show={page === 'books'} />
 
