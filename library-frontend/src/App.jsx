@@ -23,7 +23,7 @@ const App = () => {
 
       <Books show={page === 'books'} books={books} />
 
-      <NewBook show={page === 'add'} ALL_AUTHORS={ALL_AUTHORS} ALL_BOOKS={ALL_BOOKS} />
+      <NewBook show={page === 'add'} />
     </div>
   )
 }
