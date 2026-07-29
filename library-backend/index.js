@@ -165,6 +165,7 @@ const resolvers = {
       if (authors.filter(author => author.name === args.author).length === 0) {
         const newAuthor = {
           name: args.author,
+          id: uuid()
         }
         authors = authors.concat(newAuthor)
       }
