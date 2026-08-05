@@ -22,6 +22,10 @@ const typeDefs = `
     allBooks(author: String, genre: String): [Book!]!
     allAuthors: [Author!]!
     findBook(name: String!): Book
+    personCount: Int!
+    allPersons(phone: YesNo): [Person!]!
+    findPerson(name: String!): Person
+    me: User
   }
   type Mutation {
     addBook(
@@ -34,6 +38,45 @@ const typeDefs = `
       name: String!
       setBornTo: Int!
     ): Author
+    createUser(
+      username: String!
+      favoriteGenre: String!
+    ): User
+    login(
+      username: String!
+      password: String!
+    ): Token
+    addAsFriend(name: String!): User
+    addPerson(
+      name: String!
+      phone: String
+      street: String!
+      city: String!
+    ): Person
+    _resetDatabase: Boolean
+  }
+  type User {
+    username: String!
+    favoriteGenre: String!
+    friends: [Person!]!
+    id: ID!
+  }
+  type Token {
+    value: String!
+  }
+  enum YesNo {
+    YES
+    NO
+  }
+  type Address {
+    street: String!
+    city: String!
+  }
+  type Person {
+    name: String!
+    phone: String
+    address: Address!
+    id: ID!
   }
 `
 

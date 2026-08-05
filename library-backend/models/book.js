@@ -12,14 +12,17 @@ const schema = new mongoose.Schema({
     minlength: 5
   },
   author: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Author',
     required: true,
-    minlength: 2
   },
   genres: {
     type: [String],
     required: true,
-    minlength: 3
+    validate: {
+        validator: (genres) => genres.length > 0,
+        message: "Genre missing"
+    }
   },
 })
 
