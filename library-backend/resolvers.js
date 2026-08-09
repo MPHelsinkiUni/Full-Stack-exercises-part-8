@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { GraphQLError } = require('graphql')
 const { v1: uuid } = require('uuid')
 const Book = require('./models/book')
@@ -15,7 +16,7 @@ const resolvers = {
       const select = {}
 
       if (args.genre) {
-        select.genres = args.genre
+        select.genres = { $in: [args.genre] }
       }
 
       if (args.author) {
@@ -163,7 +164,7 @@ const resolvers = {
       const user = await User.findOne({ username: args.username })
 
       if ( !user || args.password !== 'secret' ) {
-        throw new GraphQLError('wrong credentials', {
+        throw new GraphQLError('login failed', {
           extensions: {
             code: 'BAD_USER_INPUT'
           }

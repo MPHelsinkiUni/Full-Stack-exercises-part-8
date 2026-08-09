@@ -154,6 +154,7 @@ describe('Library app', () => {
         page.getByRole('heading', { name: 'recommendations' }),
       ).toBeVisible()
       await expect(page.getByText('books in your favorite genre')).toBeVisible()
+      await page.screenshot({ path: 'screenshot.png' });
       await expect(page.getByText('refactoring', { exact: true })).toBeVisible()
       await expect(page.getByText('Clean Code')).toBeVisible()
       await expect(page.getByText('Crime and punishment')).not.toBeVisible()

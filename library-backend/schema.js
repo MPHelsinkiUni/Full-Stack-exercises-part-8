@@ -19,7 +19,7 @@ const typeDefs = `
   type Query {
     bookCount: Int!
     authorCount: Int!
-    allBooks(author: String, genre: String): [Book!]!
+    allBooks(author: String, genre: String, filter: String): [Book!]!
     allAuthors: [Author!]!
     findBook(name: String!): Book
     personCount: Int!

@@ -1,7 +1,4 @@
-const Books = (props) => {
-  const setGenre = (choice) => {
-    props.pickGenre(choice)
-  }
+const Recommend = (props) => {
   
   if (!props.show) {
     return null
@@ -10,15 +7,15 @@ const Books = (props) => {
   if (props.books.loading) {
     return <div>loading...</div>
   }
-
-  const genres = [... new Set(props.genres.data.allBooks.flatMap((book) => book.genres))]
+  console.log(props.genre)
+  
   const books = props.books.data.allBooks
 
   return (
     <div>
-      <h2>books</h2>
+      <h2>recommendations</h2>
 
-      {props.genre === null ? (<div>in <b>all</b> genres</div>) : (<div>in genre <b>{props.genre}</b></div>)}
+      {props.genre === null ? (<div>you have no <b>favourite</b> genre</div>) : (<div>books in your favorite genre <b>{props.genre}</b></div>)}
 
       <table>
         <tbody>
@@ -36,12 +33,8 @@ const Books = (props) => {
           ))}
         </tbody>
       </table>
-      {genres.map((genre) => (
-        <button key={genre} onClick={() => setGenre(genre)} >{genre}</button>
-      ))}
-      <button key={0} onClick={() => setGenre(null)} >{'all genres'}</button>
     </div>
   )
 }
 
-export default Books
+export default Recommend

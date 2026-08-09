@@ -12,7 +12,10 @@ const NewBook = (props) => {
 
   const [createBook] = useMutation(CREATE_BOOK, {
     refetchQueries: [
-      { query: ALL_BOOKS },
+      { 
+        query: ALL_BOOKS,
+        variables: { genre: null }
+       },
       { query: ALL_AUTHORS }
     ]
   })
@@ -24,7 +27,7 @@ const NewBook = (props) => {
   const submit = async (event) => {
     event.preventDefault()
 
-    await createBook({ variables: { title, author, published: Number(published), genres } })
+    await createBook({ variables: { title, author, published: Number(published), genres: genres.length > 0 ? genres : [undefined] } })
 
     console.log('add book...')
 
@@ -44,42 +47,51 @@ const NewBook = (props) => {
     <div>
       <form onSubmit={submit}>
         <div>
-          title
-          <input
-            label={"title"}
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-            required
-          />
+          <label for="title">
+            title
+            <input
+              id="title"
+              value={title}
+              onChange={({ target }) => setTitle(target.value)}
+              required
+            />
+          </label>
         </div>
         <div>
-          author
-          <input
-            label={"author"}
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-            required
-          />
+          <label for="author">
+            author
+            <input
+              id="author"
+              value={author}
+              onChange={({ target }) => setAuthor(target.value)}
+              required
+            />
+          </label>
         </div>
         <div>
-          published
-          <input
-            label={"number"}
-            type="number"
-            value={published}
-            onChange={({ target }) => setPublished(target.value)}
-            required
-          />
+          <label for="published">
+            published
+            <input
+              id="published"
+              type="number"
+              value={published}
+              onChange={({ target }) => setPublished(target.value)}
+              required
+            />
+          </label>
         </div>
         <div>
-          <input
-            label={"genre"}
-            value={genre}
-            onChange={({ target }) => setGenre(target.value)}
-          />
-          <button onClick={addGenre} type="button">
-            add genre
-          </button>
+          <label for="genre">
+            genre
+            <input
+              id="genre"
+              value={genre}
+              onChange={({ target }) => setGenre(target.value)}
+            />
+            <button onClick={addGenre} type="button">
+              add genre
+            </button>
+          </label>
         </div>
         <div>genres: {genres.join(' ')}</div>
         <button type="submit">create book</button>
